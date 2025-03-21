@@ -9,10 +9,16 @@ public class DatabaseConfig {
 
     public static Connection getConnection() {
         try {
+            Class.forName("org.mariadb.jdbc.Driver");
+            
             return DriverManager.getConnection(URL, USER, PASSWORD);
+        } catch (ClassNotFoundException e) {
+            System.out.println("Driver no encontrado");
+            e.printStackTrace();
         } catch (SQLException e) {
-            System.out.println("Error al intentar conectarse a la base de datos: " + e.getMessage());
-            return null;
+            System.out.println("Error al intentar conectarse a la base de datos");
+            e.printStackTrace();
         }
+        return null;
     }
 }
