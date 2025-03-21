@@ -42,4 +42,38 @@ public class PlaylistDAO {
             System.out.println(" Error al listar playlists: " + e.getMessage());
         }
     }
+
+    public boolean editarPlaylist(int id, String nuevoTitulo, String nuevoInterprete, int nuevaCantidadTemas, double nuevaDuracionTotal) {
+        String sql = "UPDATE playlists SET titulo = ?, interprete = ?, cantidad_temas = ?, duracion_total = ? WHERE id = ?";
+        try (Connection conn = DatabaseConfig.getConnection(); 
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setString(1, nuevoTitulo);
+            stmt.setString(2, nuevoInterprete);
+            stmt.setInt(3, nuevaCantidadTemas);
+            stmt.setDouble(4, nuevaDuracionTotal);
+            stmt.setInt(5, id);
+            
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar la playlist: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean eliminarPlaylist(int id) {
+        String sql = "DELETE FROM playlists WHERE id = ?";
+        try (Connection conn = DatabaseConfig.getConnection(); 
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setInt(1, id);
+            
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar la playlist: " + e.getMessage());
+            return false;
+        }
+    }
 }

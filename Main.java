@@ -9,7 +9,9 @@ public class Main {
             System.out.println("\nSpotify - Gestión de Playlists");
             System.out.println("1. Agregar Playlist");
             System.out.println("2. Listar Playlists");
-            System.out.println("3. Salir");
+            System.out.println("3. Editar Playlist");
+            System.out.println("4. Eliminar Playlist");
+            System.out.println("5. Salir");
             System.out.print("Elige una opción: ");
             opcion = scanner.nextInt();
             scanner.nextLine();
@@ -31,6 +33,12 @@ public class Main {
                     PlaylistDAO.listarPlaylists();
                     break;
                 case 3:
+                    PlaylistDAO.editarPlaylist();
+                    break;
+                case 4:
+                    PlaylistDAO.eliminarPlaylist();
+                    break;
+                case 5:
                     System.out.println("¡Hasta luego!");
                     break;
                 default:
