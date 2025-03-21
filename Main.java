@@ -6,7 +6,7 @@ public class Main {
         int opcion;
 
         do {
-            System.out.println("\n🎧 Spotify - Gestión de Playlists 🎶");
+            System.out.println("\nSpotify - Gestión de Playlists");
             System.out.println("1. Agregar Playlist");
             System.out.println("2. Listar Playlists");
             System.out.println("3. Salir");
@@ -31,10 +31,10 @@ public class Main {
                     PlaylistDAO.listarPlaylists();
                     break;
                 case 3:
-                    System.out.println("👋 ¡Hasta luego!");
+                    System.out.println("¡Hasta luego!");
                     break;
                 default:
-                    System.out.println("❌ Opción no válida.");
+                    System.out.println("Opción no válida.");
             }
         } while (opcion != 3);
 
