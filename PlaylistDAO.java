@@ -30,7 +30,7 @@ public class PlaylistDAO {
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             
-            System.out.println("\n🎵 Playlists en la base de datos:");
+            System.out.println("\n Playlists en la base de datos:");
             while (rs.next()) {
                 System.out.println("ID: " + rs.getInt("id") +
                         " | Título: " + rs.getString("titulo") +
@@ -39,7 +39,7 @@ public class PlaylistDAO {
                         " | Duración: " + rs.getDouble("duracion_total") + " min");
             }
         } catch (SQLException e) {
-            System.out.println("❌ Error al listar playlists: " + e.getMessage());
+            System.out.println(" Error al listar playlists: " + e.getMessage());
         }
     }
 }
