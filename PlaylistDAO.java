@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 public class PlaylistDAO {
 
-    public static void agregarPlaylist(String titulo, String interprete, int cantidadTemas, double duracionTotal) {
+    public void agregarPlaylist(String titulo, String interprete, int cantidadTemas, double duracionTotal) {
         String sql = "INSERT INTO playlist (titulo, interprete, cantidad_temas, duracion_total) VALUES (?, ?, ?, ?)";
         
         try (Connection conn = DatabaseConfig.getConnection();
@@ -23,7 +23,7 @@ public class PlaylistDAO {
         }
     }
 
-    public static void listarPlaylists() {
+    public void listarPlaylists() {
         String sql = "SELECT * FROM playlist";
         
         try (Connection conn = DatabaseConfig.getConnection();
