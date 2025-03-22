@@ -28,15 +28,15 @@ public class Main {
                     System.out.print("Duración total en minutos: ");
                     double duracionTotal = scanner.nextDouble();
                     
-                    playlistDAO.agregarPlaylist(titulo, interprete, cantidadTemas, duracionTotal);  // Uso de la instancia
+                    playlistDAO.agregarPlaylist(titulo, interprete, cantidadTemas, duracionTotal);  
                     break;
                 case 2:
                     playlistDAO.listarPlaylists();  
                     break;
-                    case 3:
+                case 3:
                     System.out.print("ID de la playlist a editar: ");
                     int idEditar = scanner.nextInt();
-                    scanner.nextLine();  // Consumir el salto de línea pendiente
+                    scanner.nextLine();  
                 
                     System.out.print("Nuevo título: ");
                     String nuevoTitulo = scanner.nextLine();
@@ -76,7 +76,7 @@ public class Main {
                 default:
                     System.out.println("Opción no válida.");
             }
-        } while (opcion != 5);  // Cambié el fin del ciclo a opción 5, no a 3.
+        } while (opcion != 5);  
 
         scanner.close();
     }
