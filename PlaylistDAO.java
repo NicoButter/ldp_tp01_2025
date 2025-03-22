@@ -44,7 +44,7 @@ public class PlaylistDAO {
     }
 
     public boolean editarPlaylist(int id, String nuevoTitulo, String nuevoInterprete, int nuevaCantidadTemas, double nuevaDuracionTotal) {
-        String sql = "UPDATE playlists SET titulo = ?, interprete = ?, cantidad_temas = ?, duracion_total = ? WHERE id = ?";
+        String sql = "UPDATE playlist SET titulo = ?, interprete = ?, cantidad_temas = ?, duracion_total = ? WHERE id = ?";
         try (Connection conn = DatabaseConfig.getConnection(); 
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
@@ -63,7 +63,7 @@ public class PlaylistDAO {
     }
 
     public boolean eliminarPlaylist(int id) {
-        String sql = "DELETE FROM playlists WHERE id = ?";
+        String sql = "DELETE FROM playlist WHERE id = ?";
         try (Connection conn = DatabaseConfig.getConnection(); 
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
