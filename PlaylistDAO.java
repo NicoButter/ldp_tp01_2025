@@ -76,4 +76,36 @@ public class PlaylistDAO {
             return false;
         }
     }
+
+    public boolean existePlaylist(int id) {
+        String sql = "SELECT COUNT(*) FROM playlist WHERE id = ?";
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0; 
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al verificar la existencia de la playlist: " + e.getMessage());
+        }
+        return false; 
+    }
+
+    public String obtenerNombrePlaylist(int id) {
+        String sql = "SELECT titulo FROM playlist WHERE id = ?";
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("titulo"); 
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener el nombre de la playlist: " + e.getMessage());
+        }
+        return null;
+    }
 }
