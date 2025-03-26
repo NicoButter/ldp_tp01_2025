@@ -23,13 +23,13 @@ public class Main {
         do {
             limpiarPantalla();
             System.out.println("\nSpotify - Gestión de Playlists");
-            System.out.println("1. Agregar Playlist");
-            System.out.println("2. Listar Playlists");
-            System.out.println("3. Editar Playlist");
-            System.out.println("4. Eliminar Playlist");
-            System.out.println("5. Listar Playlists Ordenadas");
-            System.out.println("6. Listar Playlists con Género");
-            System.out.println("7. Listar Playlists con Género Ordenadas");
+            System.out.println("1. Agregá una Playlist");
+            System.out.println("2. Listá una Playlists");
+            System.out.println("3. Editá una Playlist");
+            System.out.println("4. Eliminá una Playlist");
+            System.out.println("5. Listá una Playlists de forma ORDENADA");
+            System.out.println("6. Listá una Playlists de un Género a elección");
+            System.out.println("7. Listá una Playlists con Género Ordenadas");
             System.out.println("8. CRUD para géneros");
             System.out.println("9. Salir");
             System.out.print("Elige una opción: ");
@@ -201,24 +201,24 @@ public class Main {
             System.out.print("Elige una opción: ");
     
             while (!scanner.hasNextInt()) {
-                System.out.println("¡Por favor ingresa un número válido!");
+                System.out.println("¡Por favor ingresá un número válido!");
                 scanner.next();
-                System.out.print("Elige una opción: ");
+                System.out.print("Elegí una opción: ");
             }
             opcionGenero = scanner.nextInt();
-            scanner.nextLine(); // Limpiar buffer
+            scanner.nextLine();
     
             switch (opcionGenero) {
                 case 1:
                     System.out.print("Nombre del género: ");
                     String nombreGenero = scanner.nextLine();
                     generoDAO.agregarGenero(nombreGenero);
-                    System.out.println("\nPresiona Enter para continuar...");
+                    System.out.println("\nPresiona ENTER para continuar...");
                     scanner.nextLine();
                     break;
                 case 2:
                     generoDAO.listarGeneros();
-                    System.out.println("\nPresiona Enter para continuar...");
+                    System.out.println("\nPresiona ENTER para continuar...");
                     scanner.nextLine();
                     break;
                 case 3:
