@@ -30,7 +30,8 @@ public class Main {
             System.out.println("5. Listar Playlists Ordenadas");
             System.out.println("6. Listar Playlists con Género");
             System.out.println("7. Listar Playlists con Género Ordenadas");
-            System.out.println("8. Salir");
+            System.out.println("8. CRUD para géneros");
+            System.out.println("9. Salir");
             System.out.print("Elige una opción: ");
 
             while (!scanner.hasNextInt()) {
@@ -59,14 +60,14 @@ public class Main {
                         scanner.next();
                     }
                     double duracionTotal = scanner.nextDouble();
-                    scanner.nextLine(); // Limpiar buffer
+                    scanner.nextLine(); 
                     System.out.print("ID del género: ");
                     while (!scanner.hasNextInt()) {
                         System.out.println("¡Por favor ingresa un número válido para el ID del género!");
                         scanner.next();
                     }
                     int idGenero = scanner.nextInt();
-                    scanner.nextLine(); // Limpiar buffer
+                    scanner.nextLine(); 
 
                     playlistDAO.agregarPlaylist(titulo, interprete, cantidadTemas, duracionTotal, idGenero);
                     break;
@@ -83,12 +84,11 @@ public class Main {
                     }
                     int idEditar = scanner.nextInt();
                     scanner.nextLine();
-
+                
                     if (!playlistDAO.existePlaylist(idEditar)) {
                         System.out.println("La playlist con ID " + idEditar + " no existe.");
                         break;
                     }
-
                     System.out.println("Vas a editar la playlist con ID: " + idEditar);
                     System.out.print("Nuevo título: ");
                     String nuevoTitulo = scanner.nextLine();
@@ -106,9 +106,17 @@ public class Main {
                         scanner.next();
                     }
                     double nuevaDuracionTotal = scanner.nextDouble();
-
-                    boolean editado = playlistDAO.editarPlaylist(idEditar, nuevoTitulo, nuevoInterprete, nuevaCantidadTemas, nuevaDuracionTotal);
-
+                    scanner.nextLine(); 
+                    System.out.print("Nuevo ID del género: ");
+                    while (!scanner.hasNextInt()) {
+                        System.out.println("¡Por favor ingresa un número válido para el ID del género!");
+                        scanner.next();
+                    }
+                    int nuevoIdGenero = scanner.nextInt();
+                    scanner.nextLine(); 
+                
+                    boolean editado = playlistDAO.editarPlaylist(idEditar, nuevoTitulo, nuevoInterprete, nuevaCantidadTemas, nuevaDuracionTotal, nuevoIdGenero);
+                
                     if (editado) {
                         System.out.println("Playlist actualizada con éxito.");
                     } else {
@@ -165,13 +173,108 @@ public class Main {
                     scanner.nextLine();
                     break;
                 case 8:
+                    menuGeneros(scanner, new GeneroDAO());
+                    break;
+                
+                case 9:
                     System.out.println("¡Hasta luego!");
                     break;
                 default:
                     System.out.println("Opción no válida.");
             }
-        } while (opcion != 8);
+        } while (opcion != 9);
 
         scanner.close();
     }
+
+    public static void menuGeneros(Scanner scanner, GeneroDAO generoDAO) {
+        int opcionGenero = -1;
+    
+        do {
+            limpiarPantalla();
+            System.out.println("\n--- Gestión de Géneros ---");
+            System.out.println("1. Agregar Género");
+            System.out.println("2. Listar Géneros");
+            System.out.println("3. Editar Género");
+            System.out.println("4. Eliminar Género");
+            System.out.println("5. Volver al Menú Principal");
+            System.out.print("Elige una opción: ");
+    
+            while (!scanner.hasNextInt()) {
+                System.out.println("¡Por favor ingresa un número válido!");
+                scanner.next();
+                System.out.print("Elige una opción: ");
+            }
+            opcionGenero = scanner.nextInt();
+            scanner.nextLine(); // Limpiar buffer
+    
+            switch (opcionGenero) {
+                case 1:
+                    System.out.print("Nombre del género: ");
+                    String nombreGenero = scanner.nextLine();
+                    generoDAO.agregarGenero(nombreGenero);
+                    System.out.println("\nPresiona Enter para continuar...");
+                    scanner.nextLine();
+                    break;
+                case 2:
+                    generoDAO.listarGeneros();
+                    System.out.println("\nPresiona Enter para continuar...");
+                    scanner.nextLine();
+                    break;
+                case 3:
+                    System.out.print("ID del género a editar: ");
+                    while (!scanner.hasNextInt()) {
+                        System.out.println("¡Por favor ingresa un número válido para la ID!");
+                        scanner.next();
+                    }
+                    int idEditar = scanner.nextInt();
+                    scanner.nextLine();
+    
+                    if (!generoDAO.existeGenero(idEditar)) {
+                        System.out.println("El género con ID " + idEditar + " no existe.");
+                        break;
+                    }
+    
+                    System.out.print("Nuevo nombre del género: ");
+                    String nuevoNombre = scanner.nextLine();
+    
+                    boolean editado = generoDAO.editarGenero(idEditar, nuevoNombre);
+    
+                    if (editado) {
+                        System.out.println("Género actualizado con éxito.");
+                    } else {
+                        System.out.println("No se pudo actualizar el género.");
+                    }
+                    System.out.println("\nPresiona Enter para continuar...");
+                    scanner.nextLine();
+                    break;
+                case 4:
+                    System.out.print("ID del género a eliminar: ");
+                    while (!scanner.hasNextInt()) {
+                        System.out.println("¡Por favor ingresa un número válido para la ID!");
+                        scanner.next();
+                    }
+                    int idEliminar = scanner.nextInt();
+                    scanner.nextLine();
+    
+                    boolean eliminado = generoDAO.eliminarGenero(idEliminar);
+    
+                    if (eliminado) {
+                        System.out.println("Género eliminado con éxito.");
+                    } else {
+                        System.out.println("No se pudo eliminar el género.");
+                    }
+                    System.out.println("\nPresiona Enter para continuar...");
+                    scanner.nextLine();
+                    break;
+                case 5:
+                    System.out.println("Volviendo al menú principal...");
+                    break;
+                default:
+                    System.out.println("Opción no válida.8");
+            }
+        } while (opcionGenero != 5);
+    }
+
 }
+
