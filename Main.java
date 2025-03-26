@@ -35,9 +35,9 @@ public class Main {
             System.out.print("Elige una opción: ");
 
             while (!scanner.hasNextInt()) {
-                System.out.println("¡Por favor ingresa un número válido!");
+                System.out.println("¡Por favor ingresá un número válido!");
                 scanner.next();
-                System.out.print("Elige una opción: ");
+                System.out.print("Elegí una opción: ");
             }
             opcion = scanner.nextInt();
             scanner.nextLine(); 
@@ -50,20 +50,20 @@ public class Main {
                     String interprete = scanner.nextLine();
                     System.out.print("Cantidad de temas: ");
                     while (!scanner.hasNextInt()) {
-                        System.out.println("¡Por favor ingresa un número válido para la cantidad de temas!");
+                        System.out.println("¡Por favor ingresá un número válido para la cantidad de temas!");
                         scanner.next();
                     }
                     int cantidadTemas = scanner.nextInt();
                     System.out.print("Duración total en minutos: ");
                     while (!scanner.hasNextDouble()) {
-                        System.out.println("¡Por favor ingresa un número válido para la duración total!");
+                        System.out.println("¡Por favor ingresá un número válido para la duración total!");
                         scanner.next();
                     }
                     double duracionTotal = scanner.nextDouble();
                     scanner.nextLine(); 
                     System.out.print("ID del género: ");
                     while (!scanner.hasNextInt()) {
-                        System.out.println("¡Por favor ingresa un número válido para el ID del género!");
+                        System.out.println("¡Por favor ingresá un número válido para el ID del género!");
                         scanner.next();
                     }
                     int idGenero = scanner.nextInt();
@@ -73,20 +73,20 @@ public class Main {
                     break;
                 case 2:
                     playlistDAO.listarPlaylists();
-                    System.out.println("\nPresiona Enter para continuar...");
+                    System.out.println("\nPresioná Enter para continuar...");
                     scanner.nextLine();
                     break;
                 case 3:
                     System.out.print("ID de la playlist a editar: ");
                     while (!scanner.hasNextInt()) {
-                        System.out.println("¡Por favor ingresa un número válido para la ID!");
+                        System.out.println("¡Por favor ingresá un número válido para la ID!");
                         scanner.next();
                     }
                     int idEditar = scanner.nextInt();
                     scanner.nextLine();
                 
                     if (!playlistDAO.existePlaylist(idEditar)) {
-                        System.out.println("La playlist con ID " + idEditar + " no existe.");
+                        System.out.println("La playlist con ID " + idEditar + " no existe :(");
                         break;
                     }
                     System.out.println("Vas a editar la playlist con ID: " + idEditar);
@@ -96,20 +96,20 @@ public class Main {
                     String nuevoInterprete = scanner.nextLine();
                     System.out.print("Nueva cantidad de temas: ");
                     while (!scanner.hasNextInt()) {
-                        System.out.println("¡Por favor ingresa un número válido para la cantidad de temas!");
+                        System.out.println("¡Por favor ingresá un número válido para la cantidad de temas!");
                         scanner.next();
                     }
                     int nuevaCantidadTemas = scanner.nextInt();
                     System.out.print("Nueva duración total en minutos: ");
                     while (!scanner.hasNextDouble()) {
-                        System.out.println("¡Por favor ingresa un número válido para la duración total!");
+                        System.out.println("¡Por favor ingresá un número válido para la duración total!");
                         scanner.next();
                     }
                     double nuevaDuracionTotal = scanner.nextDouble();
                     scanner.nextLine(); 
                     System.out.print("Nuevo ID del género: ");
                     while (!scanner.hasNextInt()) {
-                        System.out.println("¡Por favor ingresa un número válido para el ID del género!");
+                        System.out.println("¡Por favor ingresá un número válido para el ID del género!");
                         scanner.next();
                     }
                     int nuevoIdGenero = scanner.nextInt();
@@ -118,9 +118,9 @@ public class Main {
                     boolean editado = playlistDAO.editarPlaylist(idEditar, nuevoTitulo, nuevoInterprete, nuevaCantidadTemas, nuevaDuracionTotal, nuevoIdGenero);
                 
                     if (editado) {
-                        System.out.println("Playlist actualizada con éxito.");
+                        System.out.println("Playlist actualizada con éxito :)");
                     } else {
-                        System.out.println("No se pudo actualizar la playlist.");
+                        System.out.println("No se pudo actualizar la playlist :(");
                     }
                     System.out.println("\nPresiona Enter para continuar...");
                     scanner.nextLine();
@@ -128,7 +128,7 @@ public class Main {
                 case 4:
                     System.out.print("ID de la playlist a eliminar: ");
                     while (!scanner.hasNextInt()) {
-                        System.out.println("¡Por favor ingresa un número válido para la ID!");
+                        System.out.println("¡Por favor ingresá un número válido para la ID!");
                         scanner.next();
                     }
                     int idEliminar = scanner.nextInt();
@@ -136,40 +136,40 @@ public class Main {
                     boolean eliminado = playlistDAO.eliminarPlaylist(idEliminar);
 
                     if (eliminado) {
-                        System.out.println("Playlist eliminada con éxito.");
+                        System.out.println("Playlist eliminada con éxito :)");
                     } else {
-                        System.out.println("No se pudo eliminar la playlist.");
+                        System.out.println("No se pudo eliminar la playlist :(");
                     }
-                    System.out.println("\nPresiona Enter para continuar...");
+                    System.out.println("\nPresioná ENTER para continuar...");
                     scanner.nextLine();
                     break;
                 case 5:
-                    System.out.print("Campo por el cual deseas ordenar (titulo, interprete, cantidad_temas, duracion_total): ");
+                    System.out.print("Ingresá es el campo por el cual deseas ordenar (titulo, interprete, cantidad_temas, duracion_total): ");
                     String campoOrden = scanner.nextLine();
 
                     if (!playlistDAO.esCampoValido(campoOrden)) {
-                        System.out.println("Campo de ordenación no válido.");
+                        System.out.println("Ingresá el campo de ordenación no válido.");
                     } else {
                         playlistDAO.listarPlaylistsOrdenadas(campoOrden);
                     }
-                    System.out.println("\nPresiona Enter para continuar...");
+                    System.out.println("\nPresioná ENTER para continuar...");
                     scanner.nextLine();
                     break;
                 case 6:
                     playlistDAO.listarPlaylistsConGenero();
-                    System.out.println("\nPresiona Enter para continuar...");
+                    System.out.println("\nPresioná ENTER para continuar...");
                     scanner.nextLine();
                     break;
                 case 7:
-                    System.out.print("Campo por el cual deseas ordenar (titulo, interprete, cantidad_temas, duracion_total): ");
+                    System.out.print("Ingresá el campo por el cual deseas ordenar (titulo, interprete, cantidad_temas, duracion_total): ");
                     String campoOrdenGenero = scanner.nextLine();
 
                     if (!playlistDAO.esCampoValido(campoOrdenGenero)) {
-                        System.out.println("Campo de ordenación no válido.");
+                        System.out.println("Campo de ordenación inválido :(");
                     } else {
                         playlistDAO.listarPlaylistsConGeneroOrdenadas(campoOrdenGenero);
                     }
-                    System.out.println("\nPresiona Enter para continuar...");
+                    System.out.println("\nPresioná ENTER para continuar...");
                     scanner.nextLine();
                     break;
                 case 8:
@@ -177,10 +177,10 @@ public class Main {
                     break;
                 
                 case 9:
-                    System.out.println("¡Hasta luego!");
+                    System.out.println("¡Hasta luego! ;)");
                     break;
                 default:
-                    System.out.println("Opción no válida.");
+                    System.out.println("Opción inválida :(.");
             }
         } while (opcion != 9);
 
