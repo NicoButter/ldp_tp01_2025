@@ -5,7 +5,7 @@
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 Este proyecto corresponde al **Ejercicio 1 del Trabajo Práctico 1** de la asignatura *Laboratorio de Programación - 2025* de la Universidad Nacional de la Patagonia Austral (UNPA-UARG).  
-Es una aplicación en **Java** que gestiona playlists de música, según mi caso de estudio, utilizando **MySQL** o **MariaDB** como base de datos y el conector **JDBC** para la interacción.
+Es una aplicación en **Java** que gestiona playlists de música, según mi caso de estudio, utilizando **MySQL** o **MariaDB**, (yo usé MariaDB) como base de datos y el conector **JDBC** para la interacción.
 
 ## 📌 Tabla de Contenidos  
 - [Funcionalidades](#-funcionalidades)  
@@ -30,10 +30,10 @@ Es una aplicación en **Java** que gestiona playlists de música, según mi caso
 
 ## ⚙️ Requisitos  
 - **Java**: JDK 8+ (recomendado JDK 17).  
-- **Base de datos**: MySQL o MariaDB instalado.  
+- **Base de datos**: MySQL o MariaDB.  
 - **Driver JDBC**: [Descargar Connector/J](https://dev.mysql.com/downloads/connector/j/).  
 - **IDE**: Eclipse, VS Code (con extensiones Java).  
-- **SO**: Windows o Linux.  
+- **SO**: Windows o Linux, openSUSE en lo posible :).  
 
 ---
 
@@ -52,25 +52,25 @@ export CLASSPATH=$CLASSPATH:/ruta/a/tu/proyecto/lib/mariadb-java-client-2.7.6.ja
 
 #### En **Windows**(MySQL)
 
-1. Descarga el `.zip` desde [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/).  
-2. Extrae el archivo (`mysql-connector-j-8.0.33.jar`) y muévelo a la carpeta `lib\` de tu proyecto.  
-3. Configura el classpath en CMD:  
+1. Descargate el `.zip` desde [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/).  
+2. Extrae el archivo (`mysql-connector-j-8.0.33.jar`) y movelo a la carpeta `lib\` de tu proyecto.  
+3. Configurá el classpath en CMD:  
    ```batch
    set CLASSPATH=%CLASSPATH%;C:\ruta\a\tu\proyecto\lib\mysql-connector-j-8.0.33.jar
    ```
 
 ## 🖥️ Configuración en IDE
 
-### 🔹 Configuración en Eclipse y VS Code
+### 🔹 Configuración en Eclipse y VS Code -> NO ES UN IDE :|
 
 #### **Eclipse**
 1. Clic derecho en el proyecto → **Properties** → **Java Build Path**.  
 2. Ir a **Libraries** → **Add External JARs...** → Selecciona `mysql-connector-j-8.0.33.jar`.  
-3. Asegúrate de que aparezca en **Referenced Libraries**.
+3. Asegurate de que aparezca en **Referenced Libraries**.
 
 #### **VS Code**
-1. Instala las extensiones **Java Extension Pack** y **Debugger for Java**.  
-2. En el archivo `.vscode/settings.json`, agrega:
+1. Instalá las extensiones **Java Extension Pack** y **Debugger for Java**.  
+2. En el archivo `.vscode/settings.json`, agregá:
    ```json
    {
        "java.project.referencedLibraries": ["lib/mysql-connector-j-8.0.33.jar"]
@@ -81,7 +81,7 @@ export CLASSPATH=$CLASSPATH:/ruta/a/tu/proyecto/lib/mariadb-java-client-2.7.6.ja
 
 ## 🛠 Configuración de la base de datos
 
-### **1️⃣ Crear la base de datos y tablas**
+### **1️⃣ Create la base de datos y tablas**
 
 ### 1️⃣ Estructura
 
@@ -106,9 +106,9 @@ CREATE TABLE playlist (
 );
 ```
 
-### **2️⃣ Configurar la conexión en Java**
+### **2️⃣ Tenés que configurar la conexión en Java**
 
-Crea o edita la clase `DatabaseConfig.java`:
+Create o editá la clase `DatabaseConfig.java`:
 
 ```java
 import java.sql.Connection;
@@ -146,7 +146,7 @@ Ejecuta la clase `Main.java` como aplicación Java.
 
 📧 **Contacto**: [nicobutter@gmail.com](mailto:nicobutter@gmail.com)  
 
-### ¿Dudas o sugerencias? ¡Escríbeme!
+### ¿Dudas o sugerencias? ¡Escribime!
 
 ✉️ Email: nicobutter@gmail.com
 🚀 ¡Gracias por tu interés!
