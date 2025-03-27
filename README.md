@@ -33,7 +33,7 @@ Es una aplicación en **Java** que gestiona playlists de música, según mi caso
 - **Base de datos**: MySQL o MariaDB.  
 - **Driver JDBC**: [Descargar Connector/J](https://dev.mysql.com/downloads/connector/j/).  
 - **IDE**: Eclipse, VS Code (con extensiones Java).  
-- **SO**: Windows o Linux, openSUSE en lo posible :).  
+- **SO**: Windows o Linux, openSUSE en lo posible :)
 
 ---
 
@@ -142,7 +142,7 @@ Ejecuta la clase `Main.java` como aplicación Java.
 - 📅 Proyecto académico para UNPA-UARG (2025).
 - Este proyecto forma parte del **TP1 de Laboratorio de Programación 2025** (UNPA).  
 - Compatible con **MySQL** y **MariaDB** (tenés que ajusta el driver si usas otra base de datos).  
-- Asegúrate de tener el puerto **3306** abierto si usas una BD remota.  
+- Asegurate tener el puerto **3306** abierto si usás una BD remota.  
 
 📧 **Contacto**: [nicobutter@gmail.com](mailto:nicobutter@gmail.com)  
 
