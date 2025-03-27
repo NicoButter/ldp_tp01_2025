@@ -305,5 +305,32 @@ public class PlaylistDAO {
             System.out.println("Error al listar playlists por criterio: " + e.getMessage());
         }
     }
+
+    public void mostrarEstadisticas() {
+        String sql = "SELECT AVG(duracion_total) AS promedio_duracion, SUM(cantidad_temas) AS suma_temas FROM playlist";
+    
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            
+            if (rs.next()) {
+                double promedioDuracion = rs.getDouble("promedio_duracion");
+                int sumaTemas = rs.getInt("suma_temas");
+    
+                if (rs.wasNull()) { // Si no hay playlists, AVG y SUM devuelven NULL
+                    System.out.println("No hay playlists cargadas para calcular estadísticas.");
+                } else {
+                    System.out.println("\n--- Estadísticas de Playlists ---");
+                    System.out.printf("Promedio de duración total: %.2f minutos%n", promedioDuracion);
+                    System.out.println("Suma total de temas: " + sumaTemas);
+                }
+            } else {
+                System.out.println("No hay playlists cargadas.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al calcular estadísticas: " + e.getMessage());
+        }
+    }
+    
 }
 

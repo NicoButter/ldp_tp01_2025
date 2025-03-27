@@ -14,7 +14,6 @@ public class Main {
             System.out.println("No se pudo limpiar la pantalla.");
         }
     }
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         PlaylistDAO playlistDAO = new PlaylistDAO();
@@ -33,7 +32,9 @@ public class Main {
             System.out.println("6. Listá una Playlists de un Género a elección");
             System.out.println("7. Listá una Playlists con Género Ordenadas");
             System.out.println("8. CRUD para géneros");
-            System.out.println("9. Salir");
+            System.out.println("10. Listar Playlists por Criterio");
+            System.out.println("11. Estadísticas de Playlists");
+            System.out.println("12. Salir");
             System.out.print("Elige una opción: ");
 
             while (!scanner.hasNextInt()) {
@@ -65,7 +66,6 @@ public class Main {
                     scanner.nextLine(); 
                     System.out.print("Nombre del género: "); 
                     String nombreGenero = scanner.nextLine(); 
-
                     PlaylistDAO playlistDAOInstance = new PlaylistDAO();
                     int idGenero = playlistDAOInstance.existeGenero(nombreGenero.toLowerCase());
                     if (idGenero == -1) {
@@ -74,7 +74,6 @@ public class Main {
                         scanner.nextLine();
                         break;
                     }
-
                     playlistDAOInstance.agregarPlaylist(titulo, interprete, cantidadTemas, duracionTotal, nombreGenero);
                     System.out.println("\nPresioná Enter para continuar...");
                     scanner.nextLine();
@@ -224,13 +223,18 @@ public class Main {
                     System.out.println("\nPresioná Enter para continuar...");
                     scanner.nextLine();
                     break;
-                case 10:
+                case 11:
+                    playlistDAO.mostrarEstadisticas();
+                    System.out.println("\nPresioná Enter para continuar...");
+                    scanner.nextLine();
+                    break;
+                case 12:
                     System.out.println("¡Hasta luego! ;)");
                     break;
                 default:
                     System.out.println("Opción inválida :(.");
             }
-        } while (opcion != 10);
+        } while (opcion != 12);
 
         scanner.close();
     }
