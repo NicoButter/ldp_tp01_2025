@@ -1,4 +1,8 @@
-# Ejercicio 1 - TP1 - Laboratorio de Programación 2025 (UNPA)
+# 🎵 Gestor de Playlists Musicales - UNPA 2025 
+
+![Java](https://img.shields.io/badge/Java-JDK%2017%2B-blue)
+![MySQL](https://img.shields.io/badge/DB-MySQL%20%7C%20MariaDB-orange)
+![License](https://img.shields.io/badge/License-MIT-green)
 
 Este proyecto corresponde al **Ejercicio 1 del Trabajo Práctico 1** de la asignatura *Laboratorio de Programación - 2025* de la Universidad Nacional de la Patagonia Austral (UNPA-UARG).  
 Es una aplicación en **Java** que gestiona playlists de música, según mi caso de estudio, utilizando **MySQL** o **MariaDB** como base de datos y el conector **JDBC** para la interacción.
