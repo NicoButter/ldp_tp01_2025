@@ -5,11 +5,13 @@ import java.sql.SQLException;
 
 public class PlaylistDAO {
 
-    public void agregarPlaylist(String titulo, String interprete, int cantidadTemas, double duracionTotal, int idGenero) {
-        if (!existeGenero(idGenero)) {
-            System.out.println("El género especificado no existe.");
+    public void agregarPlaylist(String titulo, String interprete, int cantidadTemas, double duracionTotal, String nombreGenero) {
+        int idGenero = existeGenero(nombreGenero.toLowerCase());
+        if (idGenero == -1) {
+            System.out.println("El género '" + nombreGenero + "' no existe. Por favor, crealo en la opción 8 (CRUD de géneros).");
             return;
         }
+    
         String sql = "INSERT INTO playlist (titulo, interprete, cantidad_temas, duracion_total, id_genero) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConfig.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -19,29 +21,31 @@ public class PlaylistDAO {
             stmt.setDouble(4, duracionTotal);
             stmt.setInt(5, idGenero);
             stmt.executeUpdate();
-            System.out.println("Playlist agregada con éxito.");
+            System.out.println("Playlist agregada con éxito :)");
         } catch (SQLException e) {
             System.out.println("Error al agregar playlist: " + e.getMessage());
         }
     }
 
-    public boolean existeGenero(int idGenero) {
-        String sql = "SELECT COUNT(*) FROM generos WHERE ID = ?";
+    public int existeGenero(String nombre) {        
+        String sql = "SELECT ID FROM generos WHERE NOMBRE = ?";
         try (Connection conn = DatabaseConfig.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, idGenero);
+            stmt.setString(1, nombre);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return rs.getInt(1) > 0;
+                return rs.getInt("ID");
             }
         } catch (SQLException e) {
             System.out.println("Error al verificar la existencia del género: " + e.getMessage());
         }
-        return false;
+        return -1;
     }
 
     public void listarPlaylists() {
-        String sql = "SELECT * FROM playlist";
+        String sql = "SELECT p.id, p.titulo, p.interprete, p.cantidad_temas, p.duracion_total, g.nombre AS nombre_genero " +
+                     "FROM playlist p " +
+                     "LEFT JOIN generos g ON p.id_genero = g.id";
         
         try (Connection conn = DatabaseConfig.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
@@ -52,13 +56,18 @@ public class PlaylistDAO {
                 return;
             }
     
-            System.out.println("\nPlaylists en la base de datos:");
+            System.out.println("\nEstas son tus Playlists:");
             do {
+                String genero = rs.getString("nombre_genero");
+                if (genero == null) {
+                    genero = "Sin género asignado";
+                }
                 System.out.println("ID: " + rs.getInt("id") +
                         " | Título: " + rs.getString("titulo") +
                         " | Intérprete: " + rs.getString("interprete") +
                         " | Temas: " + rs.getInt("cantidad_temas") +
-                        " | Duración: " + rs.getDouble("duracion_total") + " min");
+                        " | Duración: " + rs.getDouble("duracion_total") + " min" +
+                        " | Género: " + rs.getString("nombre_genero"));
             } while (rs.next());
         } catch (SQLException e) {
             System.out.println("Error al listar playlists: " + e.getMessage());
@@ -91,27 +100,29 @@ public class PlaylistDAO {
         }
     }
 
-    public boolean editarPlaylist(int id, String nuevoTitulo, String nuevoInterprete, int nuevaCantidadTemas, double nuevaDuracionTotal, int nuevoIdGenero) {
-        if (!existeGenero(nuevoIdGenero)) {
-            System.out.println("El género especificado no existe.");
-            return false;
-        }
-        String sql = "UPDATE playlist SET titulo = ?, interprete = ?, cantidad_temas = ?, duracion_total = ?, id_genero = ? WHERE id = ?";
-        try (Connection conn = DatabaseConfig.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, nuevoTitulo);
-            stmt.setString(2, nuevoInterprete);
-            stmt.setInt(3, nuevaCantidadTemas);
-            stmt.setDouble(4, nuevaDuracionTotal);
-            stmt.setInt(5, nuevoIdGenero); // Nuevo campo
-            stmt.setInt(6, id);
-            int rowsAffected = stmt.executeUpdate();
-            return rowsAffected > 0;
-        } catch (SQLException e) {
-            System.out.println("Error al actualizar la playlist: " + e.getMessage());
-            return false;
-        }
+   public boolean editarPlaylist(int id, String nuevoTitulo, String nuevoInterprete, int nuevaCantidadTemas, double nuevaDuracionTotal, String nuevoNombreGenero) {
+    int idGeneroNuevo = existeGenero(nuevoNombreGenero.toLowerCase());
+    if (idGeneroNuevo == -1) {
+        System.out.println("El género '" + nuevoNombreGenero + "' no existe. Por favor, crealo en la opción 8 (CRUD de géneros).");
+        return false;
     }
+
+    String sql = "UPDATE playlist SET titulo = ?, interprete = ?, cantidad_temas = ?, duracion_total = ?, id_genero = ? WHERE id = ?";
+    try (Connection conn = DatabaseConfig.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+        stmt.setString(1, nuevoTitulo);
+        stmt.setString(2, nuevoInterprete);
+        stmt.setInt(3, nuevaCantidadTemas);
+        stmt.setDouble(4, nuevaDuracionTotal);
+        stmt.setInt(5, idGeneroNuevo); 
+        stmt.setInt(6, id);
+        int rowsAffected = stmt.executeUpdate();
+        return rowsAffected > 0; 
+    } catch (SQLException e) {
+        System.out.println("Error al actualizar la playlist: " + e.getMessage());
+        return false;
+    }
+}
 
     public boolean eliminarPlaylist(int id) {
         String sql = "DELETE FROM playlist WHERE id = ?";
@@ -160,7 +171,6 @@ public class PlaylistDAO {
         return null;
     }
 
-    // 1. Listar playlists ordenadas por un campo específico
     public void listarPlaylistsOrdenadas(String campoOrden) {
         String sql = "SELECT * FROM playlist ORDER BY " + campoOrden;
 
@@ -186,7 +196,6 @@ public class PlaylistDAO {
         }
     }
 
-    // 2. Listar playlists relacionando tablas (mostrar descripción de la clave foránea)
     public void listarPlaylistsConGenero() {
         String sql = "SELECT p.id, p.titulo, p.interprete, p.cantidad_temas, p.duracion_total, g.nombre_genero " +
                      "FROM playlist p " +
@@ -215,7 +224,6 @@ public class PlaylistDAO {
         }
     }
 
-    // 3. Listar playlists relacionando tablas y ordenadas por un campo específico
     public void listarPlaylistsConGeneroOrdenadas(String campoOrden) {
         String sql = "SELECT p.id, p.titulo, p.interprete, p.cantidad_temas, p.duracion_total, g.nombre_genero " +
                      "FROM playlist p " +
@@ -245,7 +253,6 @@ public class PlaylistDAO {
         }
     }
 
-    // 4. Agregar validación para evitar errores en el campo de ordenación
     public boolean esCampoValido(String campoOrden) {
         String[] camposValidos = {"titulo", "interprete", "cantidad_temas", "duracion_total"};
         for (String campo : camposValidos) {
@@ -255,4 +262,48 @@ public class PlaylistDAO {
         }
         return false;
     }
+
+    public void listarPlaylistsPorCriterio(String criterio, double valorMinimo) {
+        String sql = "SELECT p.id, p.titulo, p.interprete, p.cantidad_temas, p.duracion_total, g.nombre AS nombre_genero " +
+                     "FROM playlist p " +
+                     "LEFT JOIN generos g ON p.id_genero = g.id " +
+                     "WHERE p." + criterio + " >= ?";
+    
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            if (criterio.equals("duracion_total")) {
+                stmt.setDouble(1, valorMinimo);
+            } else if (criterio.equals("cantidad_temas")) {
+                stmt.setInt(1, (int) valorMinimo);
+            } else {
+                System.out.println("Criterio no válido.");
+                return;
+            }
+    
+            ResultSet rs = stmt.executeQuery();
+    
+            if (!rs.next()) {
+                System.out.println("No hay playlists que cumplan con el criterio " + criterio + " >= " + valorMinimo + ".");
+                return;
+            }
+    
+            System.out.println("\nPlaylists que cumplen con " + criterio + " >= " + valorMinimo + ":");
+            do {
+                String genero = rs.getString("nombre_genero");
+                if (genero == null) {
+                    genero = "Sin género asignado";
+                }
+                System.out.println("ID: " + rs.getInt("id") +
+                        " | Título: " + rs.getString("titulo") +
+                        " | Intérprete: " + rs.getString("interprete") +
+                        " | Temas: " + rs.getInt("cantidad_temas") +
+                        " | Duración: " + rs.getDouble("duracion_total") + " min" +
+                        " | Género: " + genero);
+            } while (rs.next());
+        } catch (SQLException e) {
+            System.out.println("Error al listar playlists por criterio: " + e.getMessage());
+        }
+    }
 }
+
