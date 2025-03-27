@@ -44,8 +44,7 @@ export CLASSPATH=$CLASSPATH:/ruta/a/tu/proyecto/lib/mariadb-java-client-2.7.6.ja
 2. Extrae el archivo (`mysql-connector-j-8.0.33.jar`) y muévelo a la carpeta `lib\` de tu proyecto.  
 3. Configura el classpath en CMD:  
    ```batch
-   set CLASSPATH=%CLASSPATH%;C:
-uta	u\proyecto\lib\mysql-connector-j-8.0.33.jar
+   set CLASSPATH=%CLASSPATH%;C:\ruta\a\tu\proyecto\lib\mysql-connector-j-8.0.33.jar
    ```
 
 ### 🔹 Configuración en Eclipse y VS Code
