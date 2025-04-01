@@ -1,3 +1,17 @@
+/**
+ * Configuración de conexión a la base de datos
+ * <p>
+ * Centraliza los parámetros de conexión a la base de datos
+ * y proporciona el método para obtener conexiones.
+ * </p>
+ * 
+ * @author Nicolás Butterfield
+ * @version 1.0
+ * @since Marzo 2025
+ */
+
+package playlist.config;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
