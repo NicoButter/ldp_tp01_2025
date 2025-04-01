@@ -212,7 +212,7 @@ public class Main {
                     break;
 
                 case 8:
-                    menuGeneros(scanner, generoService); // Pasamos el service en lugar del DAO
+                    menuGeneros(scanner, generoService);
                     break;
 
                 case 10:
@@ -383,5 +383,4 @@ public class Main {
             }
         } while (opcionGenero != 5);
     }
-
 }

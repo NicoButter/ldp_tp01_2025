@@ -74,8 +74,6 @@ public class GeneroService {
     }
 
     public boolean existeGenero(int id) {
-        return generoDAO.existeGenero(id); // Asumiendo que existe este método en GeneroDAO
+        return generoDAO.existeGenero(id);
     }
-
-
 }

@@ -292,7 +292,6 @@ public class PlaylistDAO {
     }
 
     public void listarPlaylistsPorCriterio(String criterio, double valorMinimo) {
-        // Consulta corregida usando genero_id en lugar de id_genero
         String sql = "SELECT p.id, p.titulo, p.interprete, p.cantidad_temas, " +
                     "p.duracion_total, g.nombre AS nombre_genero " +
                     "FROM playlist p " +
@@ -342,7 +341,7 @@ public class PlaylistDAO {
                 double promedioDuracion = rs.getDouble("promedio_duracion");
                 int sumaTemas = rs.getInt("suma_temas");
 
-                if (rs.wasNull()) { // Si no hay playlists, AVG y SUM devuelven NULL
+                if (rs.wasNull()) {
                     System.out.println("No hay playlists cargadas para calcular estadísticas.");
                 } else {
                     System.out.println("\n--- Estadísticas de Playlists ---");

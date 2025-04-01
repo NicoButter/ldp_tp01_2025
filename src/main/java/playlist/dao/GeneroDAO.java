@@ -84,23 +84,21 @@ public class GeneroDAO {
         Connection conn = null;
     try {
         conn = DatabaseConfig.getConnection();
-        conn.setAutoCommit(false); // Iniciar transacción
+        conn.setAutoCommit(false); 
 
-        // 1. Actualizar playlists asociadas para que queden sin género
         String updateSql = "UPDATE playlist SET genero_id = NULL WHERE genero_id = ?";
         try (PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
             updateStmt.setInt(1, id);
             updateStmt.executeUpdate();
         }
 
-        // 2. Eliminar el género
         String deleteSql = "DELETE FROM generos WHERE id = ?";
         try (PreparedStatement deleteStmt = conn.prepareStatement(deleteSql)) {
             deleteStmt.setInt(1, id);
             int rowsAffected = deleteStmt.executeUpdate();
             
             if (rowsAffected > 0) {
-                conn.commit(); // Confirmar transacción
+                conn.commit(); 
                 return true;
             }
             return false;
@@ -108,7 +106,7 @@ public class GeneroDAO {
     } catch (SQLException e) {
         if (conn != null) {
             try {
-                conn.rollback(); // Revertir en caso de error
+                conn.rollback();
             } catch (SQLException ex) {
                 System.out.println("Error al revertir transacción: " + ex.getMessage());
             }
@@ -118,7 +116,7 @@ public class GeneroDAO {
     } finally {
         if (conn != null) {
             try {
-                conn.setAutoCommit(true); // Restaurar autocommit
+                conn.setAutoCommit(true); 
                 conn.close();
             } catch (SQLException e) {
                 System.out.println("Error al cerrar conexión: " + e.getMessage());
@@ -156,6 +154,4 @@ public class GeneroDAO {
         }
         return false;
     }
-
-
 }
