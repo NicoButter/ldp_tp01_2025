@@ -19,9 +19,11 @@ package playlist;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import playlist.config.DatabaseReset;
+import playlist.config.DatabaseConfig;
+import playlist.config.DatabaseInitializer;
 import playlist.service.GeneroService;
 import playlist.service.PlaylistService;
+
 
 public class Main {
 
@@ -263,18 +265,15 @@ public class Main {
                     break;
 
                 case 12:
-                    try {
-                        System.out.println("¿Estás seguro que deseas resetear la base de datos? (s/n)");
-                        String confirmacion = scanner.nextLine();
-                        if (confirmacion.equalsIgnoreCase("s")) {
-                            DatabaseReset.factoryReset();
-                            System.out.println(
-                                    "Base de datos reiniciada exitosamente. Se cargaron 10 playlists de ejemplo.");
-                        } else {
-                            System.out.println("Operación cancelada.");
-                        }
-                    } catch (SQLException e) {
-                        System.out.println("Error al resetear la base de datos: " + e.getMessage());
+                    System.out.println("¿Estás seguro que deseas resetear la base de datos? (s/n)");
+                    String confirmacion = scanner.nextLine();
+                    if (confirmacion.equalsIgnoreCase("s")) {
+                        DatabaseInitializer initializer = new DatabaseInitializer(scanner);
+                        initializer.ejecutarSubmenuRegeneracion();
+                        System.out.println(
+                            "Base de datos reiniciada exitosamente. Se cargaron 10 playlists de ejemplo.");
+                    } else {
+                        System.out.println("Operación cancelada.");
                     }
                     System.out.println("\nPresioná Enter para continuar...");
                     scanner.nextLine();
