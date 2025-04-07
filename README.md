@@ -144,8 +144,6 @@ Ejecuta la clase `Main.java` como aplicación Java.
 - Compatible con **MySQL** y **MariaDB** (tenés que ajusta el driver si usas otra base de datos).  
 - Asegurate tener el puerto **3306** abierto si usás una BD remota.  
 
-📧 **Contacto**: [nicobutter@gmail.com](mailto:nicobutter@gmail.com)  
-
 ### ¿Dudas o sugerencias? ¡Escribime!
 
 ✉️ Email: nicobutter@gmail.com
